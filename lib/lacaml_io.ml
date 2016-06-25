@@ -369,7 +369,7 @@ let pp_int32_el ppf n = fprintf ppf "%ld" n
 
 type ('el, 'elt) pp_vec =
   formatter ->
-  ('el, 'elt, fortran_layout) Array1.t
+  ('el, 'elt, c_layout) Array1.t
   -> unit
 
 let pp_fvec ppf vec = pp_mat_gen pp_float_el ppf (from_col_vec vec)
@@ -392,7 +392,7 @@ let pp_rivec ppf vec =
 
 type ('el, 'elt) pp_mat =
   formatter ->
-  ('el, 'elt, fortran_layout) Array2.t
+  ('el, 'elt, c_layout) Array2.t
   -> unit
 
 let pp_fmat ppf mat = pp_mat_gen pp_float_el ppf mat
@@ -415,7 +415,7 @@ type ('el, 'elt) pp_labeled_mat =
   ?horizontal_context : Context.t option ->
   unit ->
   formatter ->
-  ('el, 'elt, fortran_layout) Array2.t
+  ('el, 'elt, c_layout) Array2.t
   -> unit
 
 let get_pp_head_foot_mat = function
@@ -460,7 +460,7 @@ type ('el, 'elt) pp_lmat =
   ?horizontal_context : Context.t option ->
   unit ->
   formatter ->
-  ('el, 'elt, fortran_layout) Array2.t
+  ('el, 'elt, c_layout) Array2.t
   -> unit
 
 let get_some_pp_head_foot_mat col_labels =
@@ -527,7 +527,7 @@ type ('el, 'elt) pp_labeled_vec =
   ?horizontal_context : Context.t option ->
   unit ->
   formatter ->
-  ('el, 'elt, fortran_layout) Array1.t
+  ('el, 'elt, c_layout) Array1.t
   -> unit
 
 let pp_labeled_vec_gen
@@ -592,7 +592,7 @@ type ('el, 'elt) pp_lvec =
   ?horizontal_context : Context.t option ->
   unit ->
   formatter ->
-  ('el, 'elt, fortran_layout) Array1.t
+  ('el, 'elt, c_layout) Array1.t
   -> unit
 
 let get_lvec_name = function
@@ -648,12 +648,12 @@ let pp_rlivec ?print_head = pp_rlvec_gen pp_limat ?print_head
 type ('el, 'elt) pp_el_ovec =
   formatter ->
   (formatter -> 'el -> unit) ->
-  ('el, 'elt, fortran_layout) Array1.t
+  ('el, 'elt, c_layout) Array1.t
   -> unit
 
 type ('el, 'elt) pp_ovec =
   formatter ->
-  ('el, 'elt, fortran_layout) Array1.t
+  ('el, 'elt, c_layout) Array1.t
   -> unit
 
 let pp_ocaml_open_vec ppf =
@@ -716,7 +716,7 @@ let pp_roivec ppf vec = pp_rovec ppf pp_int32_el vec
 
 type ('el, 'elt) pp_omat =
   formatter ->
-  ('el, 'elt, fortran_layout) Array2.t
+  ('el, 'elt, c_layout) Array2.t
   -> unit
 
 let pp_ocaml_open_mat ppf =

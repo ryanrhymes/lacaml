@@ -34,13 +34,13 @@ open Bigarray
 type prec = complexxx_elt
 type num_type = Complex.t
 
-type vec = (Complex.t, complexxx_elt, fortran_layout) Array1.t
+type vec = (Complex.t, complexxx_elt, c_layout) Array1.t
 (** Complex vectors (precision: complexxx). *)
 
-type rvec = (float, floatxx_elt, fortran_layout) Array1.t
+type rvec = (float, floatxx_elt, c_layout) Array1.t
 (** Vectors of reals (precision: floatxx). *)
 
-type mat = (Complex.t, complexxx_elt, fortran_layout) Array2.t
+type mat = (Complex.t, complexxx_elt, c_layout) Array2.t
 (** Complex matrices (precision: complexxx). *)
 
 type trans3 = [ `C | `N | `T ]

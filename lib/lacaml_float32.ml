@@ -25,9 +25,9 @@ open Bigarray
 
 type prec = float32_elt
 type num_type = float
-type vec = (float, float32_elt, fortran_layout) Array1.t
+type vec = (float, float32_elt, c_layout) Array1.t
 type rvec = vec
-type mat = (float, float32_elt, fortran_layout) Array2.t
+type mat = (float, float32_elt, c_layout) Array2.t
 
 type trans3 = [ `N | `T ]
 
@@ -36,7 +36,7 @@ let zero = 0.0
 let one = 1.0
 let add = (+.)
 
-let vec_create n = Array1.create prec fortran_layout n
+let vec_create n = Array1.create prec c_layout n
 
 let int_of_float32 = int_of_float
 

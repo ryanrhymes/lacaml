@@ -31,7 +31,7 @@ open Lacaml_utils
 
 (* Creation of matrices *)
 
-let create m n = Array2.create prec fortran_layout m n
+let create m n = Array2.create prec c_layout m n
 
 let make m n x =
   let mat = create m n in
@@ -40,7 +40,7 @@ let make m n x =
 
 let make0 m n = make m n zero
 
-let of_array ar = Array2.of_array prec fortran_layout ar
+let of_array ar = Array2.of_array prec c_layout ar
 
 let init_rows m n f =
   let mat = create m n in
@@ -118,7 +118,7 @@ let to_array mat =
     done;
     ar
 
-let col (mat : mat) c = Array2.slice_right mat c
+let col (mat : mat) c = Array2.slice_left mat c
 
 let copy_row ?vec mat r =
   let n = dim2 mat in
@@ -128,7 +128,7 @@ let copy_row ?vec mat r =
         if Array1.dim vec < n then
           failwith ("copy_row: dim(vec) < " ^ string_of_int n);
         vec
-    | None -> Array1.create prec fortran_layout n in
+    | None -> Array1.create prec c_layout n in
   for c = 1 to n do vec.{c} <- mat.{r, c} done;
   vec
 
@@ -286,7 +286,7 @@ let detri ?(up = true) ?n ?(ar = 1) ?(ac = 1) (a : mat) =
 let packed ?(up = true) ?n ?(ar = 1) ?(ac = 1) (a : mat) =
   let loc = "Lacaml.NPREC.Mat.packed" in
   let n = get_n_of_square loc a_str ar ac a n in
-  let dst = Array1.create prec fortran_layout ((n * n + n) / 2) in
+  let dst = Array1.create prec c_layout ((n * n + n) / 2) in
   let pos_ref = ref 1 in
   if up then
     for c = 1 to n do
@@ -403,7 +403,7 @@ let scal_rows ?m ?n ?ofs alphas ?(ar = 1) ?(ac = 1) a =
   ignore (get_dim_vec loc alphas_str ofs 1 alphas n_str (Some m));
   direct_scal_rows ~m ~n ~ofs ~alphas ~ar ~ac ~a
 
-let vec_create n = Array1.create prec fortran_layout n
+let vec_create n = Array1.create prec c_layout n
 
 external direct_syrk_trace :
   n : int ->

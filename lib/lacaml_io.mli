@@ -61,7 +61,7 @@ val pp_mat_gen :
   ?horizontal_context : Context.t option ->
   (formatter -> 'el -> unit) ->
   formatter ->
-  ('el, 'a, fortran_layout) Array2.t
+  ('el, 'a, c_layout) Array2.t
   -> unit
 (** [pp_mat_gen
        ?pp_open ?pp_close ?pp_head ?pp_foot ?pp_end_row ?pp_end_col
@@ -155,7 +155,7 @@ val pp_int32_el : formatter -> int32 -> unit
 (** Type of standard pretty-printers for column vectors *)
 type ('el, 'elt) pp_vec =
   formatter ->
-  ('el, 'elt, fortran_layout) Array1.t
+  ('el, 'elt, c_layout) Array1.t
   -> unit
 (** [pp_vec ppf vec] prints a vector [vec] to formatter [ppf]
     using the defaults. *)
@@ -170,7 +170,7 @@ val pp_rivec : (int32, 'elt) pp_vec
 (** Type of standard pretty-printers for matrices *)
 type ('el, 'elt) pp_mat =
   formatter ->
-  ('el, 'elt, fortran_layout) Array2.t
+  ('el, 'elt, c_layout) Array2.t
   -> unit
 (** [pp_mat ppf mat] prints a matrix [mat] to formatter [ppf] using the
     defaults. *)
@@ -196,7 +196,7 @@ type ('el, 'elt) pp_labeled_vec =
   ?horizontal_context : Context.t option ->
   unit ->
   formatter ->
-  ('el, 'elt, fortran_layout) Array1.t
+  ('el, 'elt, c_layout) Array1.t
   -> unit
 (** [pp_labeled_vec ?pp_head ?pp_foot ?pp_left ?pp_right ?pad
       ?ellipsis ?vertical_context ?horizontal_context () ppf vec]
@@ -237,7 +237,7 @@ type ('el, 'elt) pp_lvec =
   ?horizontal_context : Context.t option ->
   unit ->
   formatter ->
-  ('el, 'elt, fortran_layout) Array1.t
+  ('el, 'elt, c_layout) Array1.t
   -> unit
 (** [pp_lvec ?print_head ?print_foot ?print_left ?print_right
       ?labels ?name ?pad ?ellipsis ?vertical_context ?horizontal_context
@@ -286,7 +286,7 @@ type ('el, 'elt) pp_labeled_mat =
   ?horizontal_context : Context.t option ->
   unit ->
   formatter ->
-  ('el, 'elt, fortran_layout) Array2.t
+  ('el, 'elt, c_layout) Array2.t
   -> unit
 (** [pp_labeled_mat ?pp_head ?pp_foot ?pp_left ?pp_right ?pad
       ?ellipsis ?vertical_context ?horizontal_context () ppf mat]
@@ -324,7 +324,7 @@ type ('el, 'elt) pp_lmat =
   ?horizontal_context : Context.t option ->
   unit ->
   formatter ->
-  ('el, 'elt, fortran_layout) Array2.t
+  ('el, 'elt, c_layout) Array2.t
   -> unit
 (** [pp_lmat ?print_head ?print_foot ?print_left ?print_right
       ?row_labels ?col_labels ?pad ?ellipsis
@@ -359,7 +359,7 @@ val pp_limat : (int32, 'elt) pp_lmat
 type ('el, 'elt) pp_el_ovec =
   formatter ->
   (formatter -> 'el -> unit) ->
-  ('el, 'elt, fortran_layout) Array1.t
+  ('el, 'elt, c_layout) Array1.t
   -> unit
 (** [pp_el_ovec ppf pp_el vec] prints the vector [vec] to formatter
     [ppf] in OCaml-style using the element printer [pp_el]. *)
@@ -375,7 +375,7 @@ val pp_rovec : ('el, 'elt) pp_el_ovec
 (** Type of pretty-printers for OCaml-vectors of a given element type *)
 type ('el, 'elt) pp_ovec =
   formatter ->
-  ('el, 'elt, fortran_layout) Array1.t
+  ('el, 'elt, c_layout) Array1.t
   -> unit
 (** [pp_ovec ppf vec] prints the vector [vec] to formatter [ppf] in
     OCaml-style. *)
@@ -391,7 +391,7 @@ val pp_roivec : (int32, 'elt) pp_ovec
 val pp_omat :
   formatter ->
   (formatter -> 'el -> unit) ->
-  ('el, 'c, fortran_layout) Array2.t
+  ('el, 'c, c_layout) Array2.t
   -> unit
 (** [pp_omat ppf pp_el mat] prints matrix [mat] to formatter [ppf]
     in OCaml-style using the element printer [pp_el]. *)
@@ -399,7 +399,7 @@ val pp_omat :
 (** Type of pretty-printers for OCaml-matrices of a given element type *)
 type ('el, 'elt) pp_omat =
   formatter ->
-  ('el, 'elt, fortran_layout) Array2.t
+  ('el, 'elt, c_layout) Array2.t
   -> unit
 (** [pp_omat ppf mat] prints the matrix [mat] to formatter [ppf] in
     OCaml-style. *)

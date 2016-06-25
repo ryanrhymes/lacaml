@@ -34,12 +34,12 @@ open Bigarray
 type prec = floatxx_elt
 type num_type = float
 
-type vec = (float, floatxx_elt, fortran_layout) Array1.t
+type vec = (float, floatxx_elt, c_layout) Array1.t
 (** Vectors (precision: floatxx). *)
 
 type rvec = vec
 
-type mat = (float, floatxx_elt, fortran_layout) Array2.t
+type mat = (float, floatxx_elt, c_layout) Array2.t
 (** Matrices (precision: floatxx). *)
 
 type trans3 = [ `N | `T ]

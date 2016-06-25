@@ -73,7 +73,7 @@ let rosser_ar =
     [|   29.;  -44.;   52.;  -23.;  208.;  208.; -911.;   99.; |];
   |]
 
-let rosser () = Array2.of_array prec fortran_layout rosser_ar
+let rosser () = Array2.of_array prec c_layout rosser_ar
 
 let toeplitz (v : vec) =
   let len = Array1.dim v in
