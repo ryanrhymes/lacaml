@@ -198,7 +198,7 @@ let pp_mat_gen
             let src_r = src_row_ofs + r in
             let fmt_col ~src_col_ofs ~dst_col_ofs c =
               let str, str_len =
-                pp_el_buf pp_el buf buf_ppf mat.{src_r, src_col_ofs + c}
+                pp_el_buf pp_el buf buf_ppf mat.{src_r - 1, src_col_ofs + c - 1}
               in
               let dst_c = dst_col_ofs + c in
               row.(dst_c) <- str;
@@ -317,7 +317,7 @@ let pp_mat_gen
               pp_end_row ppf 0);
           let fmt_row_body src_r =
             maybe_pp_label src_r;
-            let pp_nth c = pp_el ppf mat.{src_r, c + 1} in
+            let pp_nth c = pp_el ppf mat.{src_r - 1, c} in
             gen_fmt_row_body ~dst_col_ofs:(src_col_ofs - 1) ~pp_nth src_r
           in
           for r = 0 to ver_stop do
@@ -760,8 +760,8 @@ let pp_oimat ppf mat = pp_omat ppf pp_int32_el mat
 module Toplevel = struct
   (* Vectors *)
 
-  let pp_labeled_col ppf c = if c > 0 then fprintf ppf "C%d" c
-  let pp_labeled_row ppf r = if r > 0 then fprintf ppf "R%d" r
+  let pp_labeled_col ppf c = if c > 0 then fprintf ppf "C%d" (c - 1)
+  let pp_labeled_row ppf r = if r > 0 then fprintf ppf "R%d" (r - 1)
 
   let gen_pp_vec pp_el ppf vec =
     pp_mat_gen ~pp_left:pp_labeled_row pp_el ppf (from_col_vec vec)
